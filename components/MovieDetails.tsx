@@ -2,7 +2,7 @@
 import { RiFilmFill } from 'react-icons/ri';
 import { TbDeviceTvOldFilled } from 'react-icons/tb';
 import { ReactNode } from 'react';
-import { Show } from '@/lib/types';
+import { Media } from '@/lib/types';
 
 interface MovieCardDetailProps {
     text: string;
@@ -31,20 +31,21 @@ function MovieCardSeparator () {
 }
 
 interface MovieDetailsProps {
-    movie: Show; 
+    media: Media; 
     isTrending?: boolean;
 }
 
-export default function MovieDetails({movie, isTrending = false}:MovieDetailsProps) {
-    const isMovie = movie.category == "Movie";
+export default function MovieDetails({media, isTrending = false}:MovieDetailsProps) {
+    const isMovie = media.media_type == "movie";
+    const releasedYear = media.release_date?.split("-")?.at(0) ?? "N/A"
 
     return (
         <>
             <div className='flex gap-2 items-center'>
-                <MovieCardDetail text={movie.year.toString()} isTrending={isTrending}/>
+                <MovieCardDetail text={releasedYear} isTrending={isTrending}/>
                 <MovieCardSeparator />
                 <MovieCardDetail 
-                    text={movie.category} 
+                    text={isMovie ? "Movie" : "TV Series"} 
                     icon={isMovie 
                         ? <RiFilmFill size={14} className={`fill-pure-white-75`}/> 
                         : <TbDeviceTvOldFilled size={14} className={`fill-pure-white-75`}/>
@@ -52,7 +53,7 @@ export default function MovieDetails({movie, isTrending = false}:MovieDetailsPro
                     isTrending={isTrending}
                 />
                 <MovieCardSeparator />
-                <MovieCardDetail text={movie.rating} isTrending={isTrending}/>
+                <MovieCardDetail text={"N/A"} isTrending={isTrending}/>
             </div>
             <div 
                 className={`
@@ -60,7 +61,7 @@ export default function MovieDetails({movie, isTrending = false}:MovieDetailsPro
                     ${isTrending ? "text-[15px] md:text-heading-s" : "text-[14px] md:text-heading-xs"}
                 `}
             >
-                {movie.title}
+                {media.title}
             </div>
         </>
     )

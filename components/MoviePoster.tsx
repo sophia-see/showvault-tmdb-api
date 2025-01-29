@@ -1,30 +1,20 @@
 "use client"
 
-import { Show } from '@/lib/types'
+import { Media } from '@/lib/types'
 import React from 'react'
 import Image from 'next/image';
 import useDeviceSize from '@/hooks/use-device-size';
+import { BASE_IMAGE_URL } from '@/lib/constants';
 
 interface MoviePosterProps {
-    movie:Show;
-    isTrending?: boolean;
+    media: Media;
 }
 
-export default function MoviePoster({ movie, isTrending = false }:MoviePosterProps) {
-    const { isTablet } = useDeviceSize();
-
-    const poster = React.useMemo(() => {
-        if (isTrending) {
-            return isTablet ? movie.thumbnail.trending.large : movie.thumbnail.trending.small
-        } else {
-            return isTablet ? movie.thumbnail.regular.large : movie.thumbnail.regular.small
-        }
-    }, [movie, isTablet, isTrending])
-
+export default function MoviePoster({ media }:MoviePosterProps) {
     return (
         <div className='relative w-full h-full overflow-hidden'>
             <Image
-                src={poster}
+                src={`${BASE_IMAGE_URL}/${media.poster_path}`}
                 alt="Description of the image"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Adjust sizes for responsiveness
                 fill // Makes the image cover the container
