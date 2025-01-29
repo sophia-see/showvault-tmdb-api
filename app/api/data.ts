@@ -41,7 +41,7 @@ export async function fetchRecommended () {
       const resTV = await fetch('https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1', options)
       const dataTV = await resTV.json();
 
-      const shuffledMedia = shuffleMedia([...dataMovies, ...dataTV])
+      const shuffledMedia = shuffleMedia([...(dataMovies.results), ...(dataTV.results)])
 
       return shuffledMedia;
     } catch (error) {

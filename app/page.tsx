@@ -13,7 +13,7 @@ export default async function Home() {
           <MovieRow label={"Trending"} medias={trending}/>
         </div>
         <div className="px-4 md:px-6">
-          <MovieGrid label={"Recommended for you"} medias={recommended}/>
+          <MovieGrid label={"Top Rated"} medias={recommended}/>
         </div>
       </div>
   );
