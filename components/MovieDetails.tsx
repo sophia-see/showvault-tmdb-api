@@ -37,8 +37,9 @@ interface MovieDetailsProps {
 
 export default function MovieDetails({media, isTrending = false}:MovieDetailsProps) {
     const isMovie = media.media_type == "movie";
-    const releasedYear = media.release_date?.split("-")?.at(0) ?? "N/A"
-
+    const date = media.release_date ?? media.first_air_date ?? "";
+    const releasedYear = date?.split("-")?.at(0) ?? "N/A"
+    const title = media.title ?? media.name ?? media.original_name ?? media.original_title ?? "";
     return (
         <>
             <div className='flex gap-2 items-center'>
@@ -61,7 +62,7 @@ export default function MovieDetails({media, isTrending = false}:MovieDetailsPro
                     ${isTrending ? "text-[15px] md:text-heading-s" : "text-[14px] md:text-heading-xs"}
                 `}
             >
-                {media.title}
+                {title}
             </div>
         </>
     )

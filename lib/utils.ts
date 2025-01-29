@@ -34,3 +34,7 @@ export function shuffleMedia(medias: Media[]) {
   }
   return medias;
 }
+
+export function filterInvalidMedias(medias: Media[]) {
+  return medias.filter(i => (i.backdrop_path || i.poster_path) && (i.title || i.name || i.original_title || i.original_name ))
+}

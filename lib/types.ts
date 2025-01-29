@@ -43,8 +43,13 @@ export type Show = {
 
 export type Media = {
     id: string;
-    title: string;
-    poster_path: string;
-    release_date: string;
-    media_type: string;
+    title?: string;
+    name?: string;
+    original_name?: string;
+    original_title?: string;
+    release_date?: string;
+    first_air_date?: string;
+    poster_path?: string;
+    backdrop_path?: string;
+    media_type?: string;
 }
