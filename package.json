@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prisma:migrate": "prisma migrate dev --name auto-migration",
+    "prisma:deploy": "prisma migrate deploy",
+    "prisma:generate": "prisma generate",
     "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
+    "build": "prisma generate && next build",
+    "postbuild": "prisma migrate deploy",
+    "start": "git pull && npm run prisma:migrate && npm run dev",
     "lint": "next lint"
   },
   "dependencies": {
