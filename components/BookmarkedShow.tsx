@@ -18,6 +18,7 @@ export default function BookmarkedShow({label, shows}: BookmarkedShowProps) {
         return <></>
 
     return (
-        <MovieGrid label={label} movies={bookmarkedShows}/>
+        <></>
+        // <MovieGrid label={label} movies={bookmarkedShows}/>
     )
 }

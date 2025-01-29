@@ -18,8 +18,8 @@ export default async function page() {
     return (
         <div className="px-4 md:px-6">
             <div className="flex flex-col gap-6">
-                <BookmarkedShow label={"Bookmarked Movies"} shows={movies}/>
-                <BookmarkedShow label={"Bookmarked TV Series"} shows={tvSeries}/>
+                {/* <BookmarkedShow label={"Bookmarked Movies"} shows={movies}/>
+                <BookmarkedShow label={"Bookmarked TV Series"} shows={tvSeries}/> */}
             </div>
         </div>
     )
