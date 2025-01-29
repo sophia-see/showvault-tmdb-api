@@ -10,6 +10,15 @@ export default {
   theme: {
   	extend: {
   		colors: {
+			"pure-red": "#FC4747",
+			"dark-blue": "#10141E",
+			"dark-blue-50": "hsla(224, 30%, 9%, 50%)",
+			"greyish-blue": "#5A698F",
+			"semi-dark-blue": "#161D2F",
+			"pure-white": "#FFFFFF",
+			"pure-white-75": "hsla(0, 0%, 100%, 75%)",
+			"pure-white-25": "hsla(0, 0%, 100%, 25%)",
+			"half-pure-white": "hsla(0, 0%, 100%, 50%)",
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -55,8 +64,43 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		fontSize: {
+			"heading-l": ['32px', {
+				fontWeight: "light",
+				lineHeight: "auto",
+				letterSpacing: "-0.5px"
+			}],
+			"heading-m": ['24px', {
+				fontWeight: "light",
+				lineHeight: "auto",
+				letterSpacing: "0px"
+			}],
+			"heading-s": ['24px', {
+				fontWeight: "medium",
+				lineHeight: "auto",
+				letterSpacing: "0px"
+			}],
+			"heading-xs": ['18px', {
+				fontWeight: "medium",
+				lineHeight: "auto",
+				letterSpacing: "0px"
+			}],
+			"body-m": ['15px', {
+				fontWeight: "light",
+				lineHeight: "auto",
+				letterSpacing: "0px"
+			}],
+			"body-s": ['13px', {
+				fontWeight: "light",
+				lineHeight: "auto",
+				letterSpacing: "0px"
+			}],
+		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+	require("tailwindcss-animate"),
+	require('tailwind-scrollbar-none'),
+  ],
 } satisfies Config;
