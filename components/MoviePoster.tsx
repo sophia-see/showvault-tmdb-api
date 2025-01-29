@@ -3,7 +3,6 @@
 import { Media } from '@/lib/types'
 import React from 'react'
 import Image from 'next/image';
-import useDeviceSize from '@/hooks/use-device-size';
 import { BASE_IMAGE_URL } from '@/lib/constants';
 
 interface MoviePosterProps {

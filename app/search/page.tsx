@@ -1,6 +1,4 @@
 import MovieGrid from "@/components/MovieGrid";
-import { Show } from "@/lib/types";
-import { getMatchedShows } from "@/lib/utils";
 import { fetchMediaSearch } from "../api/data";
 
 interface HomeProps {
