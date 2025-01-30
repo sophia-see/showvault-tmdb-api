@@ -16,7 +16,7 @@ interface MovieBookmarkProps {
 export default function MovieBookmark({media}: MovieBookmarkProps) {
     const session = authClient.useSession();
     const {bookmarks, setBookmarks} = useAppContext();
-    const isBookmarked = bookmarks.includes(media.id);
+    const isBookmarked = bookmarks.includes(media.id.toString());
 
     const handleBookmark = async (media: Media) => {
         if (session.data) {

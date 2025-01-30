@@ -5,6 +5,7 @@ import prisma from "./prisma";
 export async function updateBookmark({email, show, isBookmarked}: {email: string, show: string, isBookmarked: boolean}) {
     const bookmarks =  await getUserBookmarks({email});
     let userData;
+    console.log({show})
     if (isBookmarked) {
         const filteredBookmarks = bookmarks.filter(i => i != show)
         userData = await prisma.user.update({
@@ -22,7 +23,7 @@ export async function updateBookmark({email, show, isBookmarked}: {email: string
             where: { email },
             data: {
                 bookmarks: {
-                    push:show,  // Add the new bookmark to the array
+                    push: show.toString(),  // Add the new bookmark to the array
                 },
                 updatedAt: new Date()
             },
