@@ -1,6 +1,4 @@
 import MovieGrid from '@/components/MovieGrid';
-import { Show } from '@/lib/types';
-import { getTVSeries } from '@/lib/utils';
 import React from 'react'
 import { fetchTVSeries } from '../api/data';
 
