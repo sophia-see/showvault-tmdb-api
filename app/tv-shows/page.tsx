@@ -23,7 +23,7 @@ export default async function page({ searchParams }: Readonly<PageProps>) {
   return (
     <div className="px-4 md:px-6">
       <div className="flex flex-col gap-6">
-        <MovieGrid label={"TV Series"} medias={tvSeries} movieGenres={tvGenres} selectedGenres={selectedGenres}/>
+        <MovieGrid label={"TV Series"} medias={tvSeries} hasGenrePicker={true} movieGenres={tvGenres} selectedGenres={selectedGenres}/>
         <div className='ml-auto'>
           <MoviePagination hasPrevPage={hasPrevPage} hasNextPage={hasNextPage}/>
         </div>

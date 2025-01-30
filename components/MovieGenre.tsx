@@ -1,14 +1,12 @@
 "use client"
 
 import * as React from "react"
-import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 
 import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
     DropdownMenuContent,
-    DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
@@ -16,8 +14,6 @@ import {
 import { Genre } from "@/lib/types"
 import { ScrollArea } from "@radix-ui/react-scroll-area"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-
-type Checked = DropdownMenuCheckboxItemProps["checked"]
 
 interface MovieGenreProps {
     movieGenres?: Genre[];

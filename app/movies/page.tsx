@@ -3,7 +3,6 @@ import { QueryList } from '@/lib/types';
 import React from 'react'
 import { fetchGenres, fetchMovies } from '../api/data';
 import MoviePagination from '@/components/MoviePagination';
-import { MovieGenre } from '@/components/MovieGenre';
 
 interface PageProps {
   searchParams?: Promise<{

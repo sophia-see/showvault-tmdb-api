@@ -16,7 +16,7 @@ export default function SectionContainer({label, children, hasGenrePicker = fals
         <div className='flex flex-col gap-4 md:gap-6'>
             <div className='flex justify-between items-center'>
                 <span className='font-light text-[20px] md:text-heading-l tracking-[-0.31px]'>{label}</span>
-                <MovieGenre movieGenres={movieGenres} selectedGenres={selectedGenres}/>
+                {hasGenrePicker && <MovieGenre movieGenres={movieGenres} selectedGenres={selectedGenres}/>}
             </div>
             {children}
         </div>
