@@ -35,7 +35,7 @@ export default function SignIn() {
     await authClient.signIn.email({ 
         email, 
         password, 
-        callbackURL: `${window.location.origin}/`
+        callbackURL: `/`
     }, { 
         onRequest: () => { 
           toast({
