@@ -31,16 +31,24 @@ export function MovieGenre({movieGenres, selectedGenres}: MovieGenreProps) {
     const [filteredGenre, setFilteredGenre] = React.useState<string[]>(selectedGenres ?? []);
 
     const onUpdateFilteredGenre = (genre: Genre, isChecked: boolean) => {
-        
-        const newGenres = isChecked ? filteredGenre.filter(i => i != genre.id.toString()) : [...filteredGenre, genre.id,toString()]
-        setFilteredGenre(newGenres as string[]);
+        if (isChecked)
+            setFilteredGenre((prev) => {
+                const filter = prev.filter(i => i != genre.id.toString())
+                return filter;
+            });
+        else
+            setFilteredGenre((prev) => [...prev, genre.id.toString()])
     }
     
     const onApplyFilter = () => {
         const params = new URLSearchParams(searchParams);
 
+        const genres =  encodeURI(filteredGenre.map(i => i).join(" OR "));
+
+        console.log({selectedGenres,filteredGenre, genres})
+
         if (filteredGenre.length) {
-            params.set("genre", encodeURI(filteredGenre.map(i => i).join(" OR ")))
+            params.set("genre", genres)
         } else {
             params.delete("genre")
         }

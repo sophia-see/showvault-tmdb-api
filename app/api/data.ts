@@ -119,7 +119,7 @@ export async function fetchMovies (page = "1", genre: string | undefined) {
     }
 }
 
-export async function fetchTVSeries (page = "1") {
+export async function fetchTVSeries (page = "1", genre: string | undefined) {
   const options = {
       method: 'GET',
       headers: {
@@ -129,7 +129,12 @@ export async function fetchTVSeries (page = "1") {
     };
 
     try {
-      const res = await fetch(`${TMDB_API_URL}/discover/tv?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`, options)
+      let pathURL = `/discover/tv?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`
+
+      if (genre)
+        pathURL += `&with_genres=${genre}`
+
+      const res = await fetch(`${TMDB_API_URL}${pathURL}`, options)
       const data = await res.json();
       const formattedData = data.results.map((item: Media) => ({
         ...item,
