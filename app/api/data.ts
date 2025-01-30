@@ -1,5 +1,5 @@
 import { TMDB_API_URL } from "@/lib/constants";
-import { Media } from "@/lib/types";
+import { Genre, Media } from "@/lib/types";
 import { filterInvalidMedias, shuffleMedia } from "@/lib/utils";
 
 export async function fetchTrending () {
@@ -86,7 +86,7 @@ export async function fetchMediaSearch (search: string, page = "1") {
     }
 }
 
-export async function fetchMovies (page = "1") {
+export async function fetchMovies (page = "1", genre: string | undefined) {
   const options = {
       method: 'GET',
       headers: {
@@ -96,7 +96,12 @@ export async function fetchMovies (page = "1") {
     };
 
     try {
-      const res = await fetch(`${TMDB_API_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`, options)
+      let pathURL = `/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`
+
+      if (genre)
+        pathURL += `&with_genres=${genre}`
+
+      const res = await fetch(`${TMDB_API_URL}${pathURL}`, options)
       const data = await res.json();
       const formattedData = data.results.map((item: Media) => ({
         ...item,
@@ -179,4 +184,19 @@ export async function fetchMoviesById (ids: string[]) {
 export async function fetchTVSeriesById (ids: string[]) {
   return await batchFetch(ids, 'tv');
 
+}
+
+export async function fetchGenres (type: string) {
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: `Bearer ${process.env.TMDB_API_KEY}`
+    }
+  };
+
+  const res = await fetch(`${TMDB_API_URL}/genre/${type}/list?language=en`, options)
+  const data = await res.json();
+
+  return data.genres as Genre[];
 }

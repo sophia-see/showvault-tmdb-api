@@ -59,3 +59,8 @@ export type QueryList = {
     hasNextPage: boolean;
     hasPrevPage: boolean;
 }
+
+export type Genre = {
+    id: number;
+    name: string;
+}

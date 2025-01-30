@@ -1,6 +1,6 @@
 "use client"
 
-import { Media } from '@/lib/types';
+import { Genre, Media } from '@/lib/types';
 import React from 'react'
 import MovieBookmark from './MovieBookmark';
 import MoviePoster from './MoviePoster';
@@ -11,11 +11,14 @@ import MoviePlayHover from './MoviePlayHover';
 interface MovieGridProps {
     label: string;
     medias: Media[];
+    hasGenrePicker?: boolean;
+    movieGenres?: Genre[];
+    selectedGenres?: string[];
 }
 
-export default function MovieGrid({label, medias}: MovieGridProps) {
+export default function MovieGrid({label, medias, hasGenrePicker = false, movieGenres, selectedGenres}: MovieGridProps) {
     return (
-        <SectionContainer label={label}>
+        <SectionContainer label={label} hasGenrePicker={hasGenrePicker} movieGenres={movieGenres} selectedGenres={selectedGenres}>
             <div 
                 className='
                     grid 
