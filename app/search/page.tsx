@@ -2,11 +2,11 @@ import MovieGrid from "@/components/MovieGrid";
 import { fetchMediaSearch } from "../api/data";
 
 interface HomeProps {
-    searchParams?: Promise<{
-        term?: string;
-    }>;
-  }
-  
+  searchParams?: Promise<{
+      term?: string;
+  }>;
+}
+
 
 export default async function Home({ searchParams }: Readonly<HomeProps>) {
   const term = (await searchParams)?.term || '';

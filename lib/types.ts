@@ -53,3 +53,9 @@ export type Media = {
     backdrop_path?: string;
     media_type?: string;
 }
+
+export type QueryList = {
+    results: Media[];
+    hasNextPage: boolean;
+    hasPrevPage: boolean;
+}
