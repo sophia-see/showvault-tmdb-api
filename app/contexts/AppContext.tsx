@@ -1,11 +1,12 @@
 "use client"
 
+import { Bookmark } from "@prisma/client";
 import React, { useContext } from "react";
 import { createContext, ReactNode } from "react";
 
 interface AppContextProps {
-    bookmarks: string[];
-    setBookmarks: (bookmarks: string[]) => void;
+    bookmarks: Bookmark[];
+    setBookmarks: (bookmarks: Bookmark[]) => void;
 }
 
 const AppContext = createContext<AppContextProps | null>(null);
@@ -16,7 +17,7 @@ interface AppProviderProps {
 
 
 export const AppProvider = ({children}: AppProviderProps) => {
-    const [bookmarks, setBookmarks] = React.useState<string[]>([]);
+    const [bookmarks, setBookmarks] = React.useState<Bookmark[]>([]);
     return (
         <AppContext.Provider value={{bookmarks, setBookmarks}}>
             {children}

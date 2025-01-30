@@ -2,20 +2,20 @@
 
 import prisma from "./prisma";
 
-export async function updateBookmark({email, show, isBookmarked}: {email: string, show: string, isBookmarked: boolean}) {
-    const bookmarks =  await getUserBookmarks({email});
+export async function updateBookmark({email, id, isBookmarked, media_type}: {email: string, id: string, isBookmarked: boolean, media_type?: string}) {
     let userData;
-    console.log({show})
     if (isBookmarked) {
-        const filteredBookmarks = bookmarks.filter(i => i != show)
         userData = await prisma.user.update({
             where: { email },
             data: {
                 bookmarks: {
-                    set: filteredBookmarks,  // Add the new bookmark to the array
+                    delete: {id: id},  // Add the new bookmark to the array
                 },
                 updatedAt: new Date()
             },
+            include: {
+                bookmarks: true
+            }
         });
     }
     else
@@ -23,10 +23,16 @@ export async function updateBookmark({email, show, isBookmarked}: {email: string
             where: { email },
             data: {
                 bookmarks: {
-                    push: show.toString(),  // Add the new bookmark to the array
+                    create: {
+                        id: id,
+                        media_type
+                    },  // Add the new bookmark to the array
                 },
                 updatedAt: new Date()
             },
+            include: {
+                bookmarks: true
+            }
         });
 
     return userData.bookmarks
@@ -35,6 +41,9 @@ export async function updateBookmark({email, show, isBookmarked}: {email: string
 export async function getUserBookmarks({email}: {email: string}) {
     const result = await prisma.user.findUnique({
         where: { email },
+        include: {
+            bookmarks: true
+        }
     });
 
     return result?.bookmarks ?? [];
