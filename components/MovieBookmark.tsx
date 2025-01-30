@@ -30,12 +30,13 @@ export default function MovieBookmark({media}: MovieBookmarkProps) {
             setBookmarks(newBookmarks as Bookmark[]); 
 
             try {
-                const newBookmarks = await updateBookmark({
+                const updatedBookmarks = await updateBookmark({
                     email: session.data?.user.email as string, 
                     id: media.id?.toString(), 
                     isBookmarked,
                     media_type: media.media_type
-                })                
+                })
+                setBookmarks(updatedBookmarks as Bookmark[]); 
             } catch (error) {
                 console.log("Failed to update bookmark:", error);
                 setBookmarks(bookmarks); // Revert UI if the request fails

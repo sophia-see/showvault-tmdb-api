@@ -1,5 +1,5 @@
 import MovieGrid from '@/components/MovieGrid';
-import { Media, QueryList } from '@/lib/types';
+import { QueryList } from '@/lib/types';
 import React from 'react'
 import { fetchMovies } from '../api/data';
 import MoviePagination from '@/components/MoviePagination';

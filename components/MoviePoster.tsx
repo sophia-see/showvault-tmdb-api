@@ -1,7 +1,7 @@
 "use client"
 
 import { Media } from '@/lib/types'
-import React, { useState } from 'react'
+import React from 'react'
 import Image from 'next/image';
 import { BASE_IMAGE_URL } from '@/lib/constants';
 
