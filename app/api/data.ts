@@ -59,7 +59,7 @@ export async function fetchRecommended () {
     }
 }
 
-export async function fetchMediaSearch (search: string) {
+export async function fetchMediaSearch (search: string, page = "1") {
   const options = {
       method: 'GET',
       headers: {
@@ -70,9 +70,15 @@ export async function fetchMediaSearch (search: string) {
     
 
     try {
-      const res = await fetch(`${TMDB_API_URL}/search/multi?query=${search}&include_adult=false&language=en-US&page=1`, options)
+      const res = await fetch(`${TMDB_API_URL}/search/multi?query=${search}&include_adult=false&language=en-US&page=${page}`, options)
       const data = await res.json();
-      const filteredData = data.results.filter((i: Media) => i.media_type == "tv" || i.media_type == "movie")
+      const filteredData = data.results.filter((i: Media) => i.media_type == "tv" || i.media_type == "movie");
+
+      return {
+        results: filterInvalidMedias(filteredData),
+        hasNextPage: data.page < data.total_pages,
+        hasPrevPage: data.page > 1
+      }
       return filterInvalidMedias(filteredData);
     } catch (error) {
       console.log({error})
@@ -90,7 +96,7 @@ export async function fetchMovies (page = "1") {
     };
 
     try {
-      const res = await fetch(`${TMDB_API_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page.toString()}&sort_by=popularity.desc`, options)
+      const res = await fetch(`${TMDB_API_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`, options)
       const data = await res.json();
       const formattedData = data.results.map((item: Media) => ({
         ...item,
@@ -108,7 +114,7 @@ export async function fetchMovies (page = "1") {
     }
 }
 
-export async function fetchTVSeries () {
+export async function fetchTVSeries (page = "1") {
   const options = {
       method: 'GET',
       headers: {
@@ -118,14 +124,18 @@ export async function fetchTVSeries () {
     };
 
     try {
-      const res = await fetch(`${TMDB_API_URL}/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`, options)
+      const res = await fetch(`${TMDB_API_URL}/discover/tv?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`, options)
       const data = await res.json();
       const formattedData = data.results.map((item: Media) => ({
         ...item,
         media_type: "tv"
       })) as Media[]
 
-      return filterInvalidMedias(formattedData);
+      return {
+        results: filterInvalidMedias(formattedData),
+        hasNextPage: data.page < data.total_pages,
+        hasPrevPage: data.page > 1
+      }
     } catch (error) {
       console.log({error})
       return [];
