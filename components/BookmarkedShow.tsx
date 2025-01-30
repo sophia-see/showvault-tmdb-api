@@ -1,7 +1,6 @@
 "use client"
 
-import { useAppContext } from '@/app/contexts/AppContext';
-import { Media, Show } from '@/lib/types';
+import { Media } from '@/lib/types';
 import React from 'react'
 import MovieGrid from './MovieGrid';
 

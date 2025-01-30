@@ -137,7 +137,7 @@ const batchFetch = async (ids: string[], type: 'movie' | 'tv', batchSize: number
     },
   };
 
-  const results: any[] = [];
+  const results: Media[] = [];
 
   for (let i = 0; i < ids.length; i += batchSize) {
     const batch = ids.slice(i, i + batchSize);

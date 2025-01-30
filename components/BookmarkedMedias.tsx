@@ -6,17 +6,11 @@ import BookmarkedShow from "@/components/BookmarkedShow";
 import { Media } from "@/lib/types";
 import { Bookmark } from "@prisma/client";
 import { useEffect, useState } from "react";
-import { UserSession } from "./Navbar";
 
-export default function BookmarkedMedias({
-    session,
-}: {
-    session: UserSession;
-}) {
+export default function BookmarkedMedias() {
     const { bookmarks } = useAppContext();
     const [bookmarkedMovies, setBookmarkedMovies] = useState<Media[]>([]);
     const [bookmarkedTVSeries, setBookmarkedTVSeries] = useState<Media[]>([]);
-    const [loading, setLoading] = useState(true); // Loading state
 
     useEffect(() => {
         const fetchBookmarks = async () => {
@@ -33,7 +27,7 @@ export default function BookmarkedMedias({
             );
 
             try {
-                setLoading(true); // Set loading state to true while fetching data
+                // setLoading(true); // Set loading state to true while fetching data
                 // Fetch movies and TV series concurrently
                 const [movies, tvSeries] = await Promise.all([
                     fetchMoviesById(movieIds),
@@ -45,7 +39,7 @@ export default function BookmarkedMedias({
             } catch (error) {
                 console.error("Error fetching bookmarked media:", error);
             } finally {
-                setLoading(false); // Set loading state to false after data is fetched
+                // setLoading(false); // Set loading state to false after data is fetched
             }
         };
 
