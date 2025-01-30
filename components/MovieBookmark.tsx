@@ -16,13 +16,13 @@ interface MovieBookmarkProps {
 export default function MovieBookmark({media}: MovieBookmarkProps) {
     const session = authClient.useSession();
     const {bookmarks, setBookmarks} = useAppContext();
-    const isBookmarked = !!bookmarks.find(i => i.id == media.id.toString());
+    const isBookmarked = !!bookmarks.find(i => i.id == media.id?.toString());
 
     const handleBookmark = async (media: Media) => {
         if (session.data) {
             const newBookmarks = await updateBookmark({
                 email: session.data?.user.email as string, 
-                id: media.id.toString(), 
+                id: media.id?.toString(), 
                 isBookmarked,
                 media_type: media.media_type
             })

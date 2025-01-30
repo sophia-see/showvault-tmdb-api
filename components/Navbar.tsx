@@ -16,7 +16,7 @@ import { useAppContext } from '@/app/contexts/AppContext'
 import { Session, User } from 'better-auth'
 import useDeviceSize from '@/hooks/use-device-size'
 
-interface UserSession {
+export interface UserSession {
     session: Session;
     user: User;
 }

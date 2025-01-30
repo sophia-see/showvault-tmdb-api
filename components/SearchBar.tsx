@@ -23,7 +23,7 @@ export default function SearchBar() {
             if (isSearch)
                 replace("/");
         }
-    }, 300);
+    }, 500);
 
     useEffect(() => {
         handleSearch(searchVal)
