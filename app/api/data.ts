@@ -1,3 +1,4 @@
+import { TMDB_API_URL } from "@/lib/constants";
 import { Media } from "@/lib/types";
 import { filterInvalidMedias, shuffleMedia } from "@/lib/utils";
 
@@ -125,4 +126,43 @@ export async function fetchTVSeries () {
       console.log({error})
       return [];
     }
+}
+
+const batchFetch = async (ids: string[], type: 'movie' | 'tv', batchSize: number = 10) => {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+    },
+  };
+
+  const results: any[] = [];
+
+  for (let i = 0; i < ids.length; i += batchSize) {
+    const batch = ids.slice(i, i + batchSize);
+    const fetchPromises = batch.map(id => fetch(`${TMDB_API_URL}/${type}/${id}?language=en-US`, options));
+
+    // Wait for all requests in this batch to resolve
+    const batchResults = await Promise.all(fetchPromises);
+    const data = await Promise.all(batchResults.map(res => res.json()));
+    const formatData = data.map(i => ({
+      ...i,
+      media_type: type
+    }))
+    
+    results.push(...formatData); // Add the results from the batch
+  }
+
+  return results;
+};
+
+
+export async function fetchMoviesById (ids: string[]) {
+  return await batchFetch(ids, 'movie');
+}
+
+export async function fetchTVSeriesById (ids: string[]) {
+  return await batchFetch(ids, 'tv');
+
 }
