@@ -19,7 +19,18 @@ export default function MovieRow({label, medias}: MovieRowProps) {
             <div className='flex flex-nowrap overflow-x-scroll scrollbar-none gap-4 md:gap-10 pr-4 md:pr-6'>
                 {medias.map((media, index) => {
                     return (
-                        <div className='flex-shrink-0 relative w-[240px] h-[380px] md:w-[470px] md:h-[620px] rounded-[8px] overflow-hidden cursor-pointer' key={index}>
+                        <div 
+                            className='
+                                flex-shrink-0 
+                                relative 
+                                w-[240px] h-[380px] 
+                                md:w-[320px] md:h-[480px]
+                                lg:w-[400px] lg:h-[580px]
+                                rounded-[8px] 
+                                overflow-hidden cursor-pointer
+                            ' 
+                            key={index}
+                        >
                             <MoviePlayHover />
                             <MoviePoster media={media}/>
                             <MovieBookmark media={media}/>

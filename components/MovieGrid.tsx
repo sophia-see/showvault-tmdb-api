@@ -16,11 +16,31 @@ interface MovieGridProps {
 export default function MovieGrid({label, medias}: MovieGridProps) {
     return (
         <SectionContainer label={label}>
-            <div className='grid grid-cols-[repeat(auto-fill,_minmax(164px,_1fr))] md:grid-cols-[repeat(auto-fill,_minmax(220px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(280px,_1fr))] gap-[15px] md:gap-[29px]'>
+            <div 
+                className='
+                    grid 
+                    grid-cols-[repeat(auto-fill,_minmax(164px,_1fr))] 
+                    md:grid-cols-[repeat(auto-fill,_minmax(220px,_1fr))] 
+                    xl:grid-cols-[repeat(auto-fill,_minmax(280px,_1fr))] 
+                    gap-[15px] md:gap-[29px]
+                '
+            >
                 {medias.map((media, index) => {
                     return (
                         <div className='flex flex-col gap-2 cursor-pointer' key={index}>
-                            <div className='flex-shrink-0 relative w-full h-[280px] md:h-[340px] lg:h-[474px] rounded-[8px] overflow-hidden' key={index}>
+                            <div 
+                                className='
+                                    flex-shrink-0 
+                                    relative 
+                                    w-full 
+                                    h-[280px] 
+                                    md:h-[320px] 
+                                    xl:h-[474px] 
+                                    rounded-[8px] 
+                                    overflow-hidden
+                                ' 
+                                key={index}
+                            >
                                 <MoviePlayHover />
                                 <MoviePoster media={media} />
                                 <MovieBookmark media={media}/>
