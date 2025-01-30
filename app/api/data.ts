@@ -72,7 +72,6 @@ export async function fetchMediaSearch (search: string) {
       const res = await fetch(`https://api.themoviedb.org/3/search/multi?query=${search}&include_adult=true&language=en-US&page=1`, options)
       const data = await res.json();
       const filteredData = data.results.filter((i: Media) => i.media_type == "tv" || i.media_type == "movie")
-      console.log({filteredData})
       return filterInvalidMedias(filteredData);
     } catch (error) {
       console.log({error})
@@ -97,8 +96,6 @@ export async function fetchMovies () {
         media_type: "movie"
       })) as Media[]
 
-      console.log({data})
-
       return filterInvalidMedias(formattedData);
     } catch (error) {
       console.log({error})
@@ -120,10 +117,8 @@ export async function fetchTVSeries () {
       const data = await res.json();
       const formattedData = data.results.map((item: Media) => ({
         ...item,
-        media_type: "movie"
+        media_type: "tv"
       })) as Media[]
-
-      console.log({data})
 
       return filterInvalidMedias(formattedData);
     } catch (error) {

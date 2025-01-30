@@ -20,7 +20,7 @@ export default function MovieGrid({label, medias}: MovieGridProps) {
                 {medias.map((media, index) => {
                     return (
                         <div className='flex flex-col gap-2 cursor-pointer' key={index}>
-                            <div className='flex-shrink-0 relative w-full h-[110px] md:h-[140px] lg:h-[174px] rounded-[8px] overflow-hidden' key={index}>
+                            <div className='flex-shrink-0 relative w-full h-[280px] md:h-[340px] lg:h-[474px] rounded-[8px] overflow-hidden' key={index}>
                                 <MoviePlayHover />
                                 <MoviePoster media={media} />
                                 <MovieBookmark media={media}/>
