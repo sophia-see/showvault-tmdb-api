@@ -79,3 +79,55 @@ export async function fetchMediaSearch (search: string) {
       return [];
     }
 }
+
+export async function fetchMovies () {
+  const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${process.env.TMDB_API_KEY}`
+      }
+    };
+
+    try {
+      const res = await fetch('https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=popularity.desc', options)
+      const data = await res.json();
+      const formattedData = data.results.map((item: Media) => ({
+        ...item,
+        media_type: "movie"
+      })) as Media[]
+
+      console.log({data})
+
+      return filterInvalidMedias(formattedData);
+    } catch (error) {
+      console.log({error})
+      return [];
+    }
+}
+
+export async function fetchTVSeries () {
+  const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${process.env.TMDB_API_KEY}`
+      }
+    };
+
+    try {
+      const res = await fetch('https://api.themoviedb.org/3/discover/tv?include_adult=true&include_video=false&language=en-US&page=1&sort_by=popularity.desc', options)
+      const data = await res.json();
+      const formattedData = data.results.map((item: Media) => ({
+        ...item,
+        media_type: "movie"
+      })) as Media[]
+
+      console.log({data})
+
+      return filterInvalidMedias(formattedData);
+    } catch (error) {
+      console.log({error})
+      return [];
+    }
+}
