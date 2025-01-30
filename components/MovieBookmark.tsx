@@ -1,9 +1,11 @@
 "use client"
 
 import { useAppContext } from '@/app/contexts/AppContext';
+import { toast } from '@/hooks/use-toast';
 import { authClient } from '@/lib/auth-client'
 import { updateBookmark } from '@/lib/prisma-server';
 import { Media } from '@/lib/types'
+import { Bookmark } from '@prisma/client';
 import { redirect } from 'next/navigation';
 import React from 'react'
 import { FaRegBookmark } from 'react-icons/fa6'
@@ -20,13 +22,25 @@ export default function MovieBookmark({media}: MovieBookmarkProps) {
 
     const handleBookmark = async (media: Media) => {
         if (session.data) {
-            const newBookmarks = await updateBookmark({
-                email: session.data?.user.email as string, 
-                id: media.id?.toString(), 
-                isBookmarked,
-                media_type: media.media_type
-            })
-            setBookmarks(newBookmarks)
+            // Optimistically update state
+            const newBookmarks = isBookmarked
+                ? bookmarks.filter(i => i.id !== media.id?.toString()) // Remove bookmark locally
+                : [...bookmarks, { id: media.id?.toString(), media_type: media.media_type }]; // Add bookmark locally
+
+            setBookmarks(newBookmarks as Bookmark[]); 
+
+            try {
+                const newBookmarks = await updateBookmark({
+                    email: session.data?.user.email as string, 
+                    id: media.id?.toString(), 
+                    isBookmarked,
+                    media_type: media.media_type
+                })                
+            } catch (error) {
+                console.log("Failed to update bookmark:", error);
+                setBookmarks(bookmarks); // Revert UI if the request fails
+                toast({ title: "Failed to bookmark", variant: 'destructive' });
+            }
         }
         else
             redirect("/login")
